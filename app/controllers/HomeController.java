@@ -55,7 +55,6 @@ public class HomeController extends Controller {
         return ok(addProduct.render(addProductForm));
     }
 
-    @Transactional
     public Result addProductSubmit() {
 
         // Create a product form object (to hold submitted data)
@@ -91,29 +90,19 @@ public class HomeController extends Controller {
     // Update a product by ID
     // called when edit button is pressed
     @Transactional
-    public Result updateProduct(Integer id) {
+    public Result updateProduct(Long id) {
+        // Retrieve the product by id
+        Product p = Product.find.byId(id);
 
-        Product p;
-        Form<Product> productForm;
-
-        try {
-            // Find the product by id
-            p = Product.find.byId(id);
-
-            // Create a form based on the Product class and fill using p
-            productForm = formFactory.form(Product.class).fill(p);
-        
-            } catch (Exception ex) {
-                // Display an error message or page
-                return badRequest("error");
-        }
-        // Render the updateProduct view - pass form as parameter
+        // Create a form based on the Product class and fill using p
+        Form<Product> productForm = formFactory.form(Product.class).fill(p);
+        // Render the updateProduct view
+        // pass the id and form as parameters
         return ok(addProduct.render(productForm));
     }
 
     // Delete Product by id
-    @Transactional
-    public Result deleteProduct(Integer id) {
+    public Result deleteProduct(Long id) {
 
         // find product by id and call delete method
         Product.find.ref(id).delete();
