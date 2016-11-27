@@ -15,6 +15,15 @@
 		<!-- Build the form, adding an input for each field -->
 		<!-- Note the label parameter -->
 		@inputText(addProductForm("name"), '_label -> "Name",'class -> "form-control")
+		
+		@select(
+			addProductForm("category.id"),
+
+			options(Category.options),
+			'_label -> "Category", '_default -> "-- Choose a category --",
+			'_showConstraints -> false, 'class -> "form-control"
+		)
+		
 		@inputText(addProductForm("category"), '_label -> "Category",'class -> "form-control")
 		@inputText(addProductForm("description"), '_label -> "Description",'class -> "form-control")
 		@inputText(addProductForm("stock"), '_label -> "Stock",'class -> "form-control")
